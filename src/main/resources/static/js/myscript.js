@@ -7,113 +7,103 @@ const bekreftPassord = document.getElementById("bekreftPassord");
 const fornavn = document.getElementById("fornavn");
 const etternavn = document.getElementById("etternavn");
 const mobil = document.getElementById("mobil");
-
-const textInputs = Array.from(form.querySelectorAll('input:not([type="radio"])'));
+const inputs = Array.from(form.querySelectorAll('input:not([type="radio"])'));
 const namePattern = /^(?=.{2,20}$)[A-Za-zÆØÅæøå]+(?:-[A-Za-zÆØÅæøå]+)*$/;
 
 const markTouched = input => {
-    if (!input.dataset.touched) {
-        input.dataset.touched = "true";
-    }
+    input.dataset.touched = "true";
 };
+const findContainer = input => input.closest(".inputfelt") ?? input.parentElement;
 
-const findInputContainer = input => input.closest(".inputfelt") ?? input.parentElement;
-
-const setFieldMessage = (input, message, touched) => {
-    const container = findInputContainer(input);
+const showMessage = (input, message) => {
+    const container = findContainer(input);
     if (!container) {
         return;
     }
 
-    let messageNode = container.querySelector(".field-error");
-    if (!touched || !message) {
-        if (messageNode) {
-            messageNode.remove();
-        }
+    let node = container.querySelector(".field-error");
+    const shouldShow = input.dataset.touched === "true" && message;
+
+    if (!shouldShow) {
+        node?.remove();
         return;
     }
 
-    if (!messageNode) {
-        messageNode = document.createElement("p");
-        messageNode.className = "field-error";
-        container.appendChild(messageNode);
+    if (!node) {
+        node = document.createElement("p");
+        node.className = "field-error";
+        container.appendChild(node);
     }
-    messageNode.textContent = message;
+    node.textContent = message;
 };
 
-const updateVisualState = (input, isValid) => {
-    const touched = input.dataset.touched === "true";
-    if (!touched) {
-        input.classList.remove("is-invalid", "is-valid");
-        setFieldMessage(input, "", touched);
-        return;
-    }
+const getMessage = input => {
+    const value = input.value;
+    const trimmed = value.trim();
 
-    input.classList.toggle("is-invalid", !isValid);
-    input.classList.toggle("is-valid", isValid);
-    const message = isValid ? "" : input.validationMessage;
-    setFieldMessage(input, message, touched);
+    if (input.required && !trimmed) {
+        return "Påkrevd felt";
+    }
+    if ((input === fornavn || input === etternavn) && (value !== trimmed || !namePattern.test(trimmed))) {
+        return "Kun bokstaver og -";
+    }
+    if (input === passord && input.validity.patternMismatch) {
+        return "Minst 8 tegn, En stor bokstav og tall";
+    }
+    if (input === bekreftPassord && value !== passord.value) {
+        return "Passord må matche";
+    }
+    if (input === mobil && input.validity.patternMismatch) {
+        return "Skriv 8 siffer";
+    }
+    return "";
 };
 
-const validateField = input => {
-    let message = "";
-    const rawValue = input.value;
-    const trimmedValue = rawValue.trim();
-
-    if (input.required && trimmedValue === "") {
-        message = "Påkrevd felt";
-    } else if (input === passord && input.validity.patternMismatch) {
-        message = "Minst 8 tegn, En stor bokstav og tall";
-    } else if (input === bekreftPassord && rawValue !== passord.value) {
-        message = "Passord må matche";
-    } else if (input === fornavn || input === etternavn) {
-        const validName = rawValue === trimmedValue && namePattern.test(trimmedValue);
-        if (!validName) {
-            message = "Kun bokstaver og -";
-        }
-    } else if (input === mobil && input.validity.patternMismatch) {
-        message = "Skriv 8 siffer";
-    }
-
+const validate = input => {
+    const message = getMessage(input);
     input.setCustomValidity(message);
     const isValid = input.checkValidity();
-    updateVisualState(input, isValid);
+    const touched = input.dataset.touched === "true";
+
+    input.classList.toggle("is-valid", touched && isValid);
+    input.classList.toggle("is-invalid", touched && !isValid);
+    showMessage(input, touched ? message : "");
     return isValid;
 };
 
-const updateSubmitState = () => {
-    validateField(passord);
-    validateField(bekreftPassord);
+const syncSubmitState = () => {
+    if (passord && bekreftPassord) {
+        [passord, bekreftPassord].forEach(validate);
+    }
     submitButton.disabled = !form.checkValidity();
 };
 
-textInputs.forEach(input => {
-    input.addEventListener("input", () => {
-        markTouched(input);
-        validateField(input);
+const handleFieldEvent = input => {
+    markTouched(input);
+    if (passord && bekreftPassord && (input === passord || input === bekreftPassord)) {
+        [passord, bekreftPassord].forEach(validate);
+    } else {
+        validate(input);
+    }
+    globalError?.classList.add("hidden");
+    syncSubmitState();
+};
 
-        if (input === passord) {
-            validateField(bekreftPassord);
-        }
+inputs.forEach(input => {
+    ["input", "blur"].forEach(evt => input.addEventListener(evt, () => handleFieldEvent(input)));
+});
 
+form.addEventListener("change", event => {
+    if (event.target.matches('input[type="radio"], input[type="checkbox"], select')) {
         globalError?.classList.add("hidden");
-        submitButton.disabled = !form.checkValidity();
-    });
-
-    input.addEventListener("blur", () => {
-        markTouched(input);
-        validateField(input);
-        if (input === passord) {
-            validateField(bekreftPassord);
-        }
-        submitButton.disabled = !form.checkValidity();
-    });
+        syncSubmitState();
+    }
 });
 
 form.addEventListener("submit", event => {
-    textInputs.forEach(input => {
+    inputs.forEach(input => {
         markTouched(input);
-        validateField(input);
+        validate(input);
     });
 
     if (!form.reportValidity()) {
@@ -123,9 +113,6 @@ form.addEventListener("submit", event => {
     } else {
         globalError?.classList.add("hidden");
     }
-
-
-    
 });
 
-updateSubmitState();
+syncSubmitState();
