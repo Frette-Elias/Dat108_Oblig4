@@ -624,3 +624,10 @@ progress::-moz-progress-bar {
 progress:indeterminate::-moz-progress-bar {
   background-color: var(--accent-bg);
 }
+.hidden {
+    display: none !important;
+}
+.kjonn {
+    display: flex;
+    gap: 10px;
+}
