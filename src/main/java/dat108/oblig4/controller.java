@@ -12,11 +12,10 @@ public class controller {
     }
     @GetMapping("/")
     public String sjekk1() {
-        return "paameldt";
+        return "paamelding_med_melding";
     }
     @GetMapping("/2")
     public String sjekk2() {
-        return "paamelding_med_melding";
+        return "paameldt";
     }
 }
-
