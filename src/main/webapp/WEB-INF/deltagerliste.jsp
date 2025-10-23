@@ -9,11 +9,11 @@
 <body>
 	<h2>Deltagerliste</h2>
 	<table>
-		<tr>
-			<th>Kjønn</th>
-			<th align="left">Navn</th>
-			<th align="left">Mobil</th>
-		</tr>
+			<tr>
+				<th>Kjønn</th>
+				<th align="left">Navn</th>
+				<th align="left">Mobil</th>
+			</tr>
             <tr>
 				<td align="center">&#9792;</td>
 				<td>Anne Panne</td>
