@@ -9,36 +9,52 @@
 
 <body>
 	<h2>Påmelding</h2>
-	<p class="hidden" style="color:red;">Påmeldingsdetaljer er ugyldige</p>
+	<p id="global-error" class="hidden form-error">Påmeldingsdetaljer er ugyldige</p>
 
     <div id="root">
         <fieldset id="paamelding">
             <legend>Påmelding</legend>
-            <form id="input" action="paamelding" method="get">
-                <label for="fornavn">Fornavn</label>
-                <input type="text" id="fornavn" placeholder="Fornavn på deltager"  autocomplete="off" size="40" required pattern="\s*\p{L}{2,}((\s+|-)\p{L}{2,})*\s*"
-                       title="Tillate tegn er kun bokstaver, mellomrom og enkel bindestrek mellom delnavn">
-                <label for="etternavn">Etternavn</label>
-                <input type="text" id="etternavn" placeholder="Etternavn på deltager" autocomplete="off" size="40" pattern="\^[A-Za-zÆØÅæøå\-]{2,20}$"
-                       title="Tillate tegn er kun bokstaver, mellomrom og enkel bindestrek mellom delnavn">
-                <label for="mobil">Mobil (8 siffer)</label>
-                <input type="tel" id="mobil" placeholder="123 45 678"  pattern="^[0-9]{8}$" inputmode="numeric"
-                       title="Mobilnummer må bestå av 8 siffer">
-                <label for="passord">Passord</label>
-                <input type="password" id="passord" placeholder="Passord" autocomplete="off" size="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                       title="Passord må inneholde minst 8 tegn, en stor bokstav, en liten bokstav og et tall">
-                <label for="bekreftPassord">Bekreft Passord</label>
-                <input type="password" id="bekreftPassord" placeholder="Bekreft Passord" autocomplete="off" size="20">
-
-                <div>Kjønn</div>
-                <div class="kjonn">
-                    <label for="mann">Mann</label>
-                    <input type="radio" id="mann" name="kjonn" value="mann">
-                    <label for="kvinne">Kvinne</label>
-                    <input type="radio" id="kvinne" name="kjonn" value="kvinne">
+            <form id="paamelding-skjema" action="paamelding" method="get" novalidate>
+                <div class="inputfelt">
+                    <label for="fornavn">Fornavn</label>
+                    <input type="text" id="fornavn" name="fornavn" placeholder="Fornavn på deltager" autocomplete="off" size="40"
+                           pattern="^(?=.{2,20}$)[A-Za-zÆØÅæøå]+(?:-[A-Za-zÆØÅæøå]+)*$" required
+                           title="Kun bokstaver og bindestrek (ikke først/sist)">
                 </div>
-                <button id="button" type="submit">Meld meg på</button>
+                <div class="inputfelt">
+                    <label for="etternavn">Etternavn</label>
+                    <input type="text" id="etternavn" name="etternavn" placeholder="Etternavn på deltager" autocomplete="off" size="40"
+                           pattern="^(?=.{2,20}$)[A-Za-zÆØÅæøå]+(?:-[A-Za-zÆØÅæøå]+)*$" required
+                           title="Kun bokstaver og bindestrek (ikke først/sist)">
+                </div>
+                <div class="inputfelt">
+                    <label for="mobil">Mobil (8 siffer)</label>
+                    <input type="tel" id="mobil" name="mobil" placeholder="12345678" pattern="^[0-9]{8}$" inputmode="numeric" required
+                           title="Mobilnummer må bestå av 8 siffer">
+                </div>
+                <div class="inputfelt">
+                    <label for="passord">Passord</label>
+                    <input type="password" id="passord" name="passord" placeholder="Passord" autocomplete="off" size="20"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required
+                           title="Passord må inneholde minst 8 tegn, en stor bokstav, en liten bokstav og et tall">
+                </div>
+                <div class="inputfelt">
+                    <label for="bekreftPassord">Bekreft Passord</label>
+                    <input type="password" id="bekreftPassord" name="bekreftPassord" placeholder="Bekreft Passord" autocomplete="off" size="20" required>
+                </div>
 
+                <div class="inputfelt">
+                    <span>Kjønn</span>
+                    <div class="kjonn">
+                        <label>
+                            <input type="radio" id="mann" name="kjonn" value="mann" required> Mann
+                        </label>
+                        <label>
+                            <input type="radio" id="kvinne" name="kjonn" value="kvinne"> Kvinne
+                        </label>
+                    </div>
+                </div>
+                <button id="button" type="submit" disabled>Meld meg på</button>
             </form>
         </fieldset>
     </div>
