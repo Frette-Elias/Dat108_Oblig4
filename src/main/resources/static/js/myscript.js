@@ -1,3 +1,4 @@
+
 const form = document.getElementById("paamelding-skjema");
 const submitButton = document.getElementById("button");
 const globalError = document.getElementById("global-error");

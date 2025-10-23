@@ -42,6 +42,19 @@
                     <label for="bekreftPassord">Bekreft Passord</label>
                     <input type="password" id="bekreftPassord" name="bekreftPassord" placeholder="Bekreft Passord" autocomplete="off" size="20" required>
                 </div>
+
+                <div class="inputfelt">
+                    <span>Kjønn</span>
+                    <div class="kjonn">
+                        <label>
+                            <input type="radio" id="mann" name="kjonn" value="mann" required> Mann
+                        </label>
+                        <label>
+                            <input type="radio" id="kvinne" name="kjonn" value="kvinne"> Kvinne
+                        </label>
+                    </div>
+                </div>
+                <button id="button" type="submit" disabled>Meld meg på</button>
             </form>
         </fieldset>
     </div>
