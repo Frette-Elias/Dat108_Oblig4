@@ -18,4 +18,8 @@ public class controller {
     public String sjekk2() {
         return "paameldt";
     }
+
+
+
+
 }
