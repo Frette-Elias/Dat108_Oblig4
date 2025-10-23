@@ -14,7 +14,7 @@
     <div id="root">
         <fieldset id="paamelding">
             <legend>Påmelding</legend>
-            <form id="paamelding-skjema" action="paamelding" method="get" novalidate>
+            <form id="paamelding-skjema" action="paamelding_med_melding" method="post">
                 <div class="inputfelt">
                     <label for="fornavn">Fornavn</label>
                     <input type="text" id="fornavn" name="fornavn" placeholder="Fornavn på deltager" autocomplete="off" size="40"
@@ -54,7 +54,7 @@
                         </label>
                     </div>
                 </div>
-                <button id="button" type="submit" disabled>Meld meg på</button>
+                <button id="button" type="submit">Meld meg på</button>
             </form>
         </fieldset>
     </div>
