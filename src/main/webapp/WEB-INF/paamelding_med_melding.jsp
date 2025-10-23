@@ -14,9 +14,9 @@
     <div id="root">
         <fieldset id="paamelding">
             <legend>Påmelding</legend>
-            <div id="input" action="paamelding" method="get">
+            <form id="input" action="paamelding" method="get">
                 <label for="fornavn">Fornavn</label>
-                <input type="text" id="fornavn" placeholder="Fornavn på deltager" autocomplete="off" size="40" pattern="\^[A-Za-zÆØÅæøå\- ]{2,20}$"
+                <input type="text" id="fornavn" placeholder="Fornavn på deltager"  autocomplete="off" size="40" required pattern="\s*\p{L}{2,}((\s+|-)\p{L}{2,})*\s*"
                        title="Tillate tegn er kun bokstaver, mellomrom og enkel bindestrek mellom delnavn">
                 <label for="etternavn">Etternavn</label>
                 <input type="text" id="etternavn" placeholder="Etternavn på deltager" autocomplete="off" size="40" pattern="\^[A-Za-zÆØÅæøå\-]{2,20}$"
@@ -39,7 +39,7 @@
                 </div>
                 <button id="button" type="submit">Meld meg på</button>
 
-            </div>
+            </form>
         </fieldset>
     </div>
 

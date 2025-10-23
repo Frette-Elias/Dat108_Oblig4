@@ -18,5 +18,9 @@ public class controller {
     public String sjekk2() {
         return "paamelding_med_melding";
     }
+
+
+
+
 }
 
