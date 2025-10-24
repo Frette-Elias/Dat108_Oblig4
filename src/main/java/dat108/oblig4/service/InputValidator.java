@@ -1,4 +1,4 @@
-package dat108.oblig4;
+package dat108.oblig4.service;
 
 import org.springframework.stereotype.Service;
 
