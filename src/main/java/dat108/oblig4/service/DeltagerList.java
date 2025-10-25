@@ -1,5 +1,6 @@
 package dat108.oblig4.service;
 
+import dat108.oblig4.entity.Deltager;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

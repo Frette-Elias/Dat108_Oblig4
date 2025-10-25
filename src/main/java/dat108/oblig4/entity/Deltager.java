@@ -1,4 +1,5 @@
-package dat108.oblig4.service;
+package dat108.oblig4.entity;
+
 
 public class Deltager {
   private String fornavn;
