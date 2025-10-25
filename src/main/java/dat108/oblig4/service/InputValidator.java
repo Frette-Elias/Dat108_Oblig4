@@ -44,13 +44,6 @@ public class InputValidator {
         return passord.matches("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}");
     }
 
-    public boolean passordeneMatcher(String passord, String bekreftPassord) {
-        if (passord == null || bekreftPassord == null) {
-            return false;
-        }
-        return passord.equals(bekreftPassord);
-    }
-
     public boolean erGyldigKjonn(String kjonn) {
         if (kjonn == null) {
             return false;

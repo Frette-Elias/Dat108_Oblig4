@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -75,7 +76,7 @@ public class DeltagerController {
             return "redirect:/";
         }
         //Passord samsvar validering
-        if (!inputValidator.passordeneMatcher(deltager.getPassord(), deltager.getPassord())) {
+        if (!deltager.getPassord().equals(deltager.getBekreftPassord())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Passordene må være like");
             redirectAttributes.addFlashAttribute("deltager", deltager);
             return "redirect:/";
@@ -87,14 +88,11 @@ public class DeltagerController {
             return "redirect:/";
         }
 
-        String hashedPassord = passordHasher.hashPassord(deltager.getPassord());
-
         Deltager nyDeltager = new Deltager(
                 deltager.getFornavn(),
                 deltager.getEtternavn(),
                 deltager.getMobil(),
-                hashedPassord,
-                hashedPassord,
+                passordHasher.hashPassord(deltager.getPassord()),
                 deltager.getKjonn()
         );
 

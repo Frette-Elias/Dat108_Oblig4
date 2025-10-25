@@ -12,6 +12,8 @@ public class PassordHasher {
         return BCrypt.hashpw(passord, BCrypt.gensalt());
 
     }
+
+    //Denne brukes for innlogging senere eventuelt
     public boolean checkPassord(String passord, String hashPassord) {
         return BCrypt.checkpw(passord, hashPassord);
     }

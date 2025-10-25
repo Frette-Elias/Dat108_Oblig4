@@ -9,12 +9,11 @@ public class Deltager {
   private String bekreftPassord;
   private String kjonn;
 
-  public Deltager(String fornavn, String etternavn, String mobil, String passord, String bekreftPassord, String kjonn) {
+  public Deltager(String fornavn, String etternavn, String mobil, String passord, String kjonn) {
     this.fornavn = fornavn;
     this.etternavn = etternavn;
     this.mobil = mobil;
     this.passord = passord;
-    this.bekreftPassord = bekreftPassord;
     this.kjonn = kjonn;
   }
 
@@ -34,10 +33,12 @@ public class Deltager {
     return passord;
   }
 
-  public String getBekreftPassord() {
-    return bekreftPassord;
+  public String getBekreftPassord() {return bekreftPassord;
   }
 
+  public void setBekreftPassord(String bekreftPassord) {
+    this.bekreftPassord = bekreftPassord;
+  }
   public String getKjonn() {
     return kjonn;
   }
