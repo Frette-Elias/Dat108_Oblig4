@@ -47,10 +47,10 @@
                     <span>Kjønn</span>
                     <div class="kjonn">
                         <label>
-                            <input type="radio" id="mann" name="kjonn" value="mann" required> Mann
+                            <input type="radio" id="mann" name="kjonn" value="Mann" required> Mann
                         </label>
                         <label>
-                            <input type="radio" id="kvinne" name="kjonn" value="kvinne"> Kvinne
+                            <input type="radio" id="kvinne" name="kjonn" value="Kvinne"> Kvinne
                         </label>
                     </div>
                 </div>
