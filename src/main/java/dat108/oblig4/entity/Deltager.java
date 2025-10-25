@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 //@Entity
-//@Table(schema = "oblig4", name = "deltagere")
+//@Table(schema = "dat108_oblig4", name = "deltagere")
 public class Deltager {
 
 
