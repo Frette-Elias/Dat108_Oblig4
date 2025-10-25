@@ -3,7 +3,9 @@ package dat108.oblig4.service;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
 
 @Service
 public class DeltagerList {
@@ -21,6 +23,11 @@ public class DeltagerList {
     }
     public void leggTil(Deltager deltager) {
         deltagerList.add(deltager);
+    }
+    public List<Deltager> deltagereSortert() {
+        return deltagerList.stream()
+                .sorted(Comparator.comparing(Deltager::getFornavn))
+                .toList();
     }
 
 
