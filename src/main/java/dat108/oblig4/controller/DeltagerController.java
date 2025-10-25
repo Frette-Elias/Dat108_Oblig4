@@ -87,12 +87,14 @@ public class DeltagerController {
             return "redirect:/";
         }
 
+        String hashedPassord = passordHasher.hashPassord(deltager.getPassord());
+
         Deltager nyDeltager = new Deltager(
                 deltager.getFornavn(),
                 deltager.getEtternavn(),
                 deltager.getMobil(),
-                passordHasher.hashPassord(deltager.getPassord()),
-                passordHasher.hashPassord(deltager.getBekreftPassord()),
+                hashedPassord,
+                hashedPassord,
                 deltager.getKjonn()
         );
 
