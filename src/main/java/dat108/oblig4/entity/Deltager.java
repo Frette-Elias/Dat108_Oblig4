@@ -1,10 +1,21 @@
 package dat108.oblig4.entity;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+//@Entity
+//@Table(schema = "oblig4", name = "deltagere")
 public class Deltager {
+
+
+    //@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String mobil;
+
   private String fornavn;
   private String etternavn;
-  private String mobil;
   private String passord;
   private String bekreftPassord;
   private String kjonn;
