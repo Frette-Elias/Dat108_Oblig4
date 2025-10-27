@@ -2,10 +2,8 @@ package dat108.oblig4.controller;
 
 import dat108.oblig4.service.LoginUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import org.aspectj.lang.annotation.RequiredTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

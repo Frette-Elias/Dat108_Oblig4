@@ -4,6 +4,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 
+// Vi har avtalt med faglærer at vi kan brke BCrypt i stedet for tillagte hasher klassen
+// Denne gjør akkurat det samme men holder styr på saltingen osv
 
 @Service
 public class PassordHasher {
