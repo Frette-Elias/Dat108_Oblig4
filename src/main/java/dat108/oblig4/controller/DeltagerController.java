@@ -1,9 +1,14 @@
 package dat108.oblig4.controller;
 
 import dat108.oblig4.entity.Deltager;
+import dat108.oblig4.entity.DeltagerForm;
+import dat108.oblig4.repository.DeltagerRepository;
 import dat108.oblig4.service.DeltagerList;
 import dat108.oblig4.service.InputValidator;
+import dat108.oblig4.service.LoginUtil;
 import dat108.oblig4.service.PassordHasher;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,24 +23,32 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class DeltagerController {
 
     @Autowired
-    InputValidator inputValidator;
+    private InputValidator inputValidator;
     @Autowired
-    DeltagerList deltagerList;
+    private DeltagerList deltagerList;
     @Autowired
-    PassordHasher passordHasher;
+    private PassordHasher passordHasher;
+    @Autowired
+    private LoginUtil loginUtil;
+    @Autowired
+    private DeltagerRepository dr;
 
 
     @GetMapping("/deltagerliste")
-    public String deltagerliste(Model model) {
+    public String deltagerliste(Model model, HttpSession session, RedirectAttributes ra) {
 
-        model.addAttribute("deltagere", deltagerList.deltagereSortert());
+        if(!loginUtil.erBrukerLoggetInn(session)) {
+            ra.addFlashAttribute("message", "Du må være innlogget");
+            return "redirect:/login";
+        }
+
+        model.addAttribute("deltagere", deltagerList.getDeltagerList());
 
         return "deltagerliste";
     }
 
     @GetMapping({"/", "/paamelding_med_melding"})
-    public String paamelding_med_melding(Model model) {
-
+    public String paamelding_med_melding() {
         return "paamelding_med_melding";
     }
 
@@ -44,60 +57,67 @@ public class DeltagerController {
         return "paameldt";
     }
     @PostMapping("/paamelding_med_melding")
-    public String registrerDeltager(@ModelAttribute Deltager deltager, RedirectAttributes redirectAttributes) {
+    public String registrerDeltager(@ModelAttribute DeltagerForm DeltagerForm, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         //Fornavn validering
-        if (!inputValidator.erGyldigFornavn(deltager.getFornavn())) {
+        if (!inputValidator.erGyldigFornavn(DeltagerForm.getFornavn())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Fornavn må være mellom 2-20 bokstaver og starte med stor forbokstav");
-            redirectAttributes.addFlashAttribute("deltager", deltager);
+            redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:/";
         }
         //Etternavn validering
-        if (!inputValidator.erGyldigEtternavn(deltager.getEtternavn())) {
+        if (!inputValidator.erGyldigEtternavn(DeltagerForm.getEtternavn())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Etternavn må være mellom 2-20 bokstaver og starte med stor forbokstav");
-            redirectAttributes.addFlashAttribute("deltager", deltager);
+            redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:/";
         }
         //Mobil validering
-        if (!inputValidator.erGyldigMobil(deltager.getMobil())) {
+        if (!inputValidator.erGyldigMobil(DeltagerForm.getMobil())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Mobilnummer må bestå av 8 siffer");
-            redirectAttributes.addFlashAttribute("deltager", deltager);
+            redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:/";
         }
-        if (inputValidator.mobilFinnes(deltager.getMobil())) {
+        if (inputValidator.mobilFinnes(DeltagerForm.getMobil())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Mobilnummer er allerede registrert");
-            redirectAttributes.addFlashAttribute("deltager", deltager);
+            redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:/";
         }
         //Passord validering
-        if (!inputValidator.erGyldigPassord(deltager.getPassord())) {
+        if (!inputValidator.erGyldigPassord(DeltagerForm.getPassord())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Minst 8 tegn, En stor bokstav og tall");
-            redirectAttributes.addFlashAttribute("deltager", deltager);
+            redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:/";
         }
         //Passord samsvar validering
-        if (!deltager.getPassord().equals(deltager.getBekreftPassord())) {
+        if (!DeltagerForm.getPassord().equals(DeltagerForm.getBekreftPassord())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Passordene må være like");
-            redirectAttributes.addFlashAttribute("deltager", deltager);
+            redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:/";
         }
         //Kjønn validering
-        if (!inputValidator.erGyldigKjonn(deltager.getKjonn())) {
+        if (!inputValidator.erGyldigKjonn(DeltagerForm.getKjonn())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Kjønn må være enten 'Mann' eller 'Kvinne'");
-            redirectAttributes.addFlashAttribute("deltager", deltager);
+            redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:/";
         }
 
         Deltager nyDeltager = new Deltager(
-                deltager.getFornavn(),
-                deltager.getEtternavn(),
-                deltager.getMobil(),
-                passordHasher.hashPassord(deltager.getPassord()),
-                deltager.getKjonn()
+                DeltagerForm.getFornavn(),
+                DeltagerForm.getEtternavn(),
+                DeltagerForm.getMobil(),
+                passordHasher.hashPassord(DeltagerForm.getPassord()),
+                DeltagerForm.getKjonn()
         );
 
-        deltagerList.leggTil(nyDeltager);
-        redirectAttributes.addFlashAttribute("deltager", deltager);
+        dr.save(nyDeltager);
+        HttpSession session1 = request.getSession();
+        session1.setAttribute("mobil", nyDeltager.getMobil());
+        session1.setAttribute("fornavn", nyDeltager.getFornavn());
+        session1.setAttribute("etternavn", nyDeltager.getEtternavn());
+        session1.setMaxInactiveInterval(60);
+
+
+        redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
         return "redirect:/paameldt";
     }
 }

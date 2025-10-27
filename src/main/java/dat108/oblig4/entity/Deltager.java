@@ -1,34 +1,33 @@
 package dat108.oblig4.entity;
 
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-//@Entity
-//@Table(schema = "dat108_oblig4", name = "deltagere")
+@Entity
+@Table(schema = "dat108_oblig4", name = "deltager")
 public class Deltager {
 
-
-    //@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private String mobil;
 
-  private String fornavn;
-  private String etternavn;
-  private String passord;
-  private String bekreftPassord;
-  private String kjonn;
+    private String fornavn;
+    private String etternavn;
+    private String passord;
+    @Transient
+    private String bekreftPassord;
+    private String kjonn;
 
-  public Deltager(String fornavn, String etternavn, String mobil, String passord, String kjonn) {
-    this.fornavn = fornavn;
-    this.etternavn = etternavn;
-    this.mobil = mobil;
-    this.passord = passord;
-    this.kjonn = kjonn;
-  }
+    public Deltager(String fornavn, String etternavn, String mobil, String passord, String kjonn) {
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.mobil = mobil;
+        this.passord = passord;
+        this.kjonn = kjonn;
+    }
 
-  public String getFornavn() {
+    public Deltager() {
+    }
+
+    public String getFornavn() {
     return fornavn;
   }
 

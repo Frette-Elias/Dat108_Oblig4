@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class InputValidator {
 
     @Autowired
-    DeltagerList deltagerList;
+    private DeltagerList deltagerList;
 
     public boolean erGyldigFornavn(String fornavn) {
         if (fornavn == null) {
@@ -41,7 +41,7 @@ public class InputValidator {
         if (passord == null) {
             return false;
         }
-        return passord.matches("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}");
+        return passord.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$");
     }
 
     public boolean erGyldigKjonn(String kjonn) {

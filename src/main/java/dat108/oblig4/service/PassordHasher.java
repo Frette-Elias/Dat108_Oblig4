@@ -4,7 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 
-//Gått litt videre med hashing allerede
+
 @Service
 public class PassordHasher {
 
@@ -13,7 +13,7 @@ public class PassordHasher {
 
     }
 
-    //Denne brukes for innlogging senere eventuelt
+
     public boolean checkPassord(String passord, String hashPassord) {
         return BCrypt.checkpw(passord, hashPassord);
     }

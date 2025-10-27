@@ -9,6 +9,8 @@
 	<title>Deltagerliste</title>
 </head>
 <body>
+    <p id="innloggetSom">Innlogget som: <c:out value="${mobil} / ${fornavn} ${etternavn}"/></p>
+
 	<h2>Deltagerliste</h2>
 	<table>
 			<tr>
@@ -25,5 +27,10 @@
             </c:forEach>
 
 	</table>
+
+    <form action="logout" method="post">
+            <p><input type="submit" value="logout"/> </p>
+    </form>
+
 </body>
 </html>
