@@ -43,6 +43,7 @@ public class DeltagerController {
         }
 
         model.addAttribute("deltagere", deltagerList.getDeltagerList());
+        model.addAttribute("mobil", session.getAttribute("mobil"));
 
         return "deltagerliste";
     }

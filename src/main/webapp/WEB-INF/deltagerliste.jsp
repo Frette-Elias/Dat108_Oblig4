@@ -19,7 +19,7 @@
 				<th align="left">Mobil</th>
 			</tr>
             <c:forEach var="deltager" items="${deltagere}">
-            <tr>
+            <tr style="${deltager.mobil eq mobil ? 'background-color:green;' : ''}">
                 <td align="center">${deltager.kjonn == 'Mann' ? '&#9794;' : '&#9792;'}</td>
 				<td>${deltager.fornavn}&nbsp;${deltager.etternavn}</td>
 				<td>${deltager.mobil}</td>
