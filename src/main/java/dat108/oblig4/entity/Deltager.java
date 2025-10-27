@@ -12,8 +12,10 @@ public class Deltager {
     private String fornavn;
     private String etternavn;
     private String passord;
-    @Transient
-    private String bekreftPassord;
+
+    //Trenger ikke denne lenger da vi bruker DeltagerForm hjelpeklasse for å bekrefte passord
+//    @Transient
+//    private String bekreftPassord;
     private String kjonn;
 
     public Deltager(String fornavn, String etternavn, String mobil, String passord, String kjonn) {
@@ -43,12 +45,12 @@ public class Deltager {
     return passord;
   }
 
-  public String getBekreftPassord() {return bekreftPassord;
-  }
-
-  public void setBekreftPassord(String bekreftPassord) {
-    this.bekreftPassord = bekreftPassord;
-  }
+//  public String getBekreftPassord() {return bekreftPassord;
+//  }
+//
+//  public void setBekreftPassord(String bekreftPassord) {
+//    this.bekreftPassord = bekreftPassord;
+//  }
   public String getKjonn() {
     return kjonn;
   }

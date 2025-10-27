@@ -109,7 +109,11 @@ public class DeltagerController {
                 DeltagerForm.getKjonn()
         );
 
+
+        //Legger til bruker i databasen
         dr.save(nyDeltager);
+
+        // Legger til en session for ny deltager så bruker kan se deltagerliste
         HttpSession session1 = request.getSession();
         session1.setAttribute("mobil", nyDeltager.getMobil());
         session1.setAttribute("fornavn", nyDeltager.getFornavn());

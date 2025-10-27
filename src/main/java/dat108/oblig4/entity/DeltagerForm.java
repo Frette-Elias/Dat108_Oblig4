@@ -2,6 +2,9 @@ package dat108.oblig4.entity;
 
 import jakarta.persistence.*;
 
+
+//Hjelpeklasse for å håndtere passordbekreftelse i påmeldingsskjema
+
 public class DeltagerForm {
 
     private String mobil;
