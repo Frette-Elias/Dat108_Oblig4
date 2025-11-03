@@ -57,6 +57,6 @@ public class Deltager {
 
   @Override
   public String toString() {
-    return fornavn + " " + etternavn + ", mobil: " + mobil + ", Kjønn" + kjonn;
+    return fornavn + " " + etternavn + ", mobil: " + mobil + ", Kjønn " + kjonn;
   }
 }

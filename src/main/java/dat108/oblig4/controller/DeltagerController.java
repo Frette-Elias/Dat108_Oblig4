@@ -56,6 +56,7 @@ public class DeltagerController {
     public String paameldt() {
         return "paameldt";
     }
+
     @PostMapping("/paamelding_med_melding")
     public String registrerDeltager(@ModelAttribute DeltagerForm DeltagerForm, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
