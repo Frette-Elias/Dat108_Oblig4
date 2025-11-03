@@ -95,7 +95,7 @@ public class DeltagerController {
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
             return "redirect:paamelding_med_melding";
         }
-        //Kjønn validering
+        //Kjønn Validering
         if (!inputValidator.erGyldigKjonn(DeltagerForm.getKjonn())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Kjønn må være enten 'Mann' eller 'Kvinne'");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
