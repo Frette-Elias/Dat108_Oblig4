@@ -28,7 +28,7 @@ public class LoginUtil {
         if(mobil == null || passord == null || mobil.isEmpty() || passord.isEmpty()) {
             throw new IllegalArgumentException("Ugyldig mobilnummer eller passord");
         }
-        Deltager deltager = dr.findByMobil(mobil);
+        Deltager deltager = dr.findById(mobil).orElse(null);
         if(!passordHasher.checkPassord(passord, deltager.getPassord())) {
             throw new IllegalArgumentException("Ugyldig mobilnummer eller passord");
         }
