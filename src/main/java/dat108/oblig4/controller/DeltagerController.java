@@ -29,8 +29,6 @@ public class DeltagerController {
     private PassordHasher passordHasher;
     @Autowired
     private LoginUtil loginUtil;
-    @Autowired
-    private DeltagerRepository dr;
 
 
     @GetMapping("/deltagerliste")
@@ -116,7 +114,7 @@ public class DeltagerController {
 
 
         //Legger til bruker i databasen
-        dr.save(nyDeltager);
+        loginUtil.lagreBruker(nyDeltager);
 
         // Legger til en session for ny deltager så bruker kan se deltagerliste
         HttpSession session1 = request.getSession();

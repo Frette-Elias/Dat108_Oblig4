@@ -50,4 +50,7 @@ public class LoginUtil {
         return deltager != null && deltager.getMobil() != null;
     }
 
+    public void lagreBruker(Deltager deltager) {
+        dr.save(deltager);
+    }
 }
