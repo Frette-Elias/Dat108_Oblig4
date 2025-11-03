@@ -38,7 +38,7 @@ public class DeltagerController {
 
         if(!loginUtil.erBrukerLoggetInn(session)) {
             ra.addFlashAttribute("message", "Du må være innlogget");
-            return "redirect:/login";
+            return "redirect:login";
         }
 
         model.addAttribute("deltagere", deltagerList.getDeltagerList());
