@@ -25,10 +25,10 @@ public class LoginController {
 
         try {
             loginUtil.loggInnBruker(mobil, passord, request);
-            return "redirect:/deltagerliste";
+            return "redirect:deltagerliste";
         } catch (IllegalArgumentException e) {
             ra.addFlashAttribute("message", "Feil mobilnummer eller passord");
-            return "redirect:/login";
+            return "redirect:login";
         }
 
     }

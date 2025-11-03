@@ -47,7 +47,7 @@ public class DeltagerController {
         return "deltagerliste";
     }
 
-    @GetMapping({"/", "/paamelding_med_melding"})
+    @GetMapping("/paamelding_med_melding")
     public String paamelding_med_melding() {
         return "paamelding_med_melding";
     }
@@ -63,42 +63,42 @@ public class DeltagerController {
         if (!inputValidator.erGyldigFornavn(DeltagerForm.getFornavn())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Fornavn må være mellom 2-20 bokstaver og starte med stor forbokstav");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-            return "redirect:/";
+            return "redirect:paamelding_med_melding";
         }
         //Etternavn validering
         if (!inputValidator.erGyldigEtternavn(DeltagerForm.getEtternavn())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Etternavn må være mellom 2-20 bokstaver og starte med stor forbokstav");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-            return "redirect:/";
+            return "redirect:paamelding_med_melding";
         }
         //Mobil validering
         if (!inputValidator.erGyldigMobil(DeltagerForm.getMobil())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Mobilnummer må bestå av 8 siffer");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-            return "redirect:/";
+            return "redirect:paamelding_med_melding";
         }
         if (inputValidator.mobilFinnes(DeltagerForm.getMobil())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Mobilnummer er allerede registrert");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-            return "redirect:/";
+            return "redirect:paamelding_med_melding";
         }
         //Passord validering
         if (!inputValidator.erGyldigPassord(DeltagerForm.getPassord())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Minst 8 tegn, En stor bokstav og tall");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-            return "redirect:/";
+            return "redirect:paamelding_med_melding";
         }
         //Passord samsvar validering
         if (!DeltagerForm.getPassord().equals(DeltagerForm.getBekreftPassord())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Passordene må være like");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-            return "redirect:/";
+            return "redirect:paamelding_med_melding";
         }
         //Kjønn validering
         if (!inputValidator.erGyldigKjonn(DeltagerForm.getKjonn())) {
             redirectAttributes.addFlashAttribute("feilmelding", "Kjønn må være enten 'Mann' eller 'Kvinne'");
             redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-            return "redirect:/";
+            return "redirect:paamelding_med_melding";
         }
 
         Deltager nyDeltager = new Deltager(
@@ -122,6 +122,6 @@ public class DeltagerController {
 
 
         redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
-        return "redirect:/paameldt";
+        return "redirect:paameldt";
     }
 }

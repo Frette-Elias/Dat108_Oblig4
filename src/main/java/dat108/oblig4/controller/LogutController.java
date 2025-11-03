@@ -19,6 +19,6 @@ public class LogutController {
     public String logout(HttpSession session, RedirectAttributes ra) {
         loginUtil.loggUtBruker(session);
         ra.addFlashAttribute("message", "Du er nå logget ut.");
-        return "redirect:/login";
+        return "redirect:login";
     }
 }
