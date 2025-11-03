@@ -47,7 +47,7 @@ public class LoginUtil {
 
     public boolean erBrukerLoggetInn(HttpSession session) {
         Deltager deltager = (Deltager) session.getAttribute("deltager");
-        return session != null && deltager.getMobil() != null;
+        return deltager != null && deltager.getMobil() != null;
     }
 
 }

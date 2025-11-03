@@ -45,6 +45,8 @@ public class DeltagerController {
 
         model.addAttribute("deltagere", deltagerList.getDeltagerList());
         model.addAttribute("mobil", deltager.getMobil());
+        model.addAttribute("fornavn", deltager.getFornavn());
+        model.addAttribute("etternavn", deltager.getEtternavn());
 
         return "deltagerliste";
     }
@@ -128,7 +130,7 @@ public class DeltagerController {
 //        session1.setMaxInactiveInterval(60);
 
 
-        redirectAttributes.addFlashAttribute("deltager", DeltagerForm);
+        redirectAttributes.addFlashAttribute("deltager", nyDeltager);
         return "redirect:paameldt";
     }
 }
