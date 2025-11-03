@@ -16,6 +16,7 @@ public class LoginUtil {
     @Autowired
     private PassordHasher passordHasher;
 
+
     public void loggUtBruker(HttpSession session) {
         if (session != null) {
             session.invalidate();
@@ -35,15 +36,17 @@ public class LoginUtil {
 
 
         HttpSession session = request.getSession();
-        session.setAttribute("mobil", mobil);
-        session.setAttribute("fornavn", deltager.getFornavn());
-        session.setAttribute("etternavn", deltager.getEtternavn());
+//        session.setAttribute("mobil", mobil);
+//        session.setAttribute("fornavn", deltager.getFornavn());
+//        session.setAttribute("etternavn", deltager.getEtternavn());
+        session.setAttribute("deltager", deltager);
         session.setMaxInactiveInterval(120);
 
     }
 
     public boolean erBrukerLoggetInn(HttpSession session) {
-        return session != null && session.getAttribute("mobil") != null;
+        Deltager deltager = (Deltager) session.getAttribute("deltager");
+        return session != null && deltager.getMobil() != null;
     }
 
 }
