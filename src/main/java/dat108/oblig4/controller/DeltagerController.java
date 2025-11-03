@@ -118,11 +118,14 @@ public class DeltagerController {
 
         // Legger til en session for ny deltager så bruker kan se deltagerliste
         HttpSession session1 = request.getSession();
+        session1.setAttribute("deltager", nyDeltager);
+
+        //Bedre å lagre hele deltager objektet i session enn å lagre hver enkelt attribute
+
 //        session1.setAttribute("mobil", nyDeltager.getMobil());
 //        session1.setAttribute("fornavn", nyDeltager.getFornavn());
 //        session1.setAttribute("etternavn", nyDeltager.getEtternavn());
 //        session1.setMaxInactiveInterval(60);
-        session1.setAttribute("deltager", nyDeltager);
 
 
         redirectAttributes.addFlashAttribute("deltager", DeltagerForm);

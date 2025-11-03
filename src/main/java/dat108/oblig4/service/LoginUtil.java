@@ -36,11 +36,12 @@ public class LoginUtil {
 
 
         HttpSession session = request.getSession();
+        session.setAttribute("deltager", deltager);
+        session.setMaxInactiveInterval(120);
+
 //        session.setAttribute("mobil", mobil);
 //        session.setAttribute("fornavn", deltager.getFornavn());
 //        session.setAttribute("etternavn", deltager.getEtternavn());
-        session.setAttribute("deltager", deltager);
-        session.setMaxInactiveInterval(120);
 
     }
 
