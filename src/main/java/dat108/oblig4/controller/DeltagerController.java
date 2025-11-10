@@ -131,4 +131,9 @@ public class DeltagerController {
         redirectAttributes.addFlashAttribute("deltager", nyDeltager);
         return "redirect:paameldt";
     }
+
+    @GetMapping("/harBruker")
+    public String harBruker() {
+        return "redirect:login";
+    }
 }

@@ -59,5 +59,9 @@
         </fieldset>
     </div>
 
+    <form action="harBruker" method="get">
+        <p>Allerede registrert? <input type="submit" value="Logg inn her"/></p>
+    </form>
+
 </body>
 </html>
