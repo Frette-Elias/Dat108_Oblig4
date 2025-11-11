@@ -3,7 +3,9 @@ package dat108.oblig4.service;
 import dat108.oblig4.entity.Deltager;
 import dat108.oblig4.repository.DeltagerRepository;
 
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,12 +35,16 @@ public class LoginServiceTest {
     @BeforeAll
     public void engangsOppsett() {
         deltager = new Deltager("Ola", "Normann", "12345678", "passord1", "Mann");
+    }
+    @BeforeEach
+    public void setup() {
         request = new MockHttpServletRequest();
     }
 
     @Test
     public void ikkeLoggetInn() {
-        assertFalse(loginUtil.erBrukerLoggetInn(request.getSession(false)));
+        HttpSession session = request.getSession(false);
+        assertFalse(loginUtil.erBrukerLoggetInn(session));
     }
 
     @Test
@@ -47,5 +53,11 @@ public class LoginServiceTest {
         when(passordHasher.checkPassord("passord1", deltager.getPassord())).thenReturn(true);
         loginUtil.loggInnBruker(deltager.getMobil(), "passord1", request);
         assertTrue(loginUtil.erBrukerLoggetInn(request.getSession()));
+    }
+
+    @Test
+    public void loggUt() {
+        loginUtil.loggUtBruker(request.getSession(true));
+        assertFalse(loginUtil.erBrukerLoggetInn(request.getSession(true)));
     }
 }
